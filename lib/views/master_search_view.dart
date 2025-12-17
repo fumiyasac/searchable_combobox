@@ -571,11 +571,6 @@ class MasterSearchView extends ConsumerWidget {
             ),
           ),
         ),
-        Icon(
-          Icons.arrow_drop_down,
-          color: AppTheme.primaryColor,
-          size: 28,
-        ),
       ],
     );
   }
