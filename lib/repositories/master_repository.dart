@@ -7,35 +7,30 @@ class MasterRepository {
   static const String _selectionHistoryKey = 'selection_history';
 
   // 実際の運用では、APIやローカルDBから取得
-  // ここではダミーデータを返す
   Future<List<MasterItem>> getMasterItems(String masterType) async {
-    await Future.delayed(const Duration(milliseconds: 300)); // API呼び出しをシミュレート
+    await Future.delayed(const Duration(milliseconds: 300));
 
     switch (masterType) {
       case 'all':
         return _getAllItems();
-      case 'department':
-        return _getDepartmentItems();
-      case 'subject':
-        return _getSubjectItems();
-      case 'segment1':
-        return _getSegment1Items();
-      case 'segment2':
-        return _getSegment2Items();
-      case 'segment3':
-        return _getSegment3Items();
-      case 'project':
-        return _getProjectItems();
-      case 'client':
-        return _getClientItems();
       case 'account':
         return _getAccountItems();
-      case 'expense':
-        return _getExpenseItems();
-      case 'product':
-        return _getProductItems();
-      case 'location':
-        return _getLocationItems();
+      case 'sub_account':
+        return _getSubAccountItems();
+      case 'client':
+        return _getClientItems();
+      case 'project':
+        return _getProjectItems();
+      case 'department':
+        return _getDepartmentItems();
+      case 'item':
+        return _getItemItems();
+      case 'payment_method':
+        return _getPaymentMethodItems();
+      case 'tax_type':
+        return _getTaxTypeItems();
+      case 'segment':
+        return _getSegmentItems();
       default:
         return [];
     }
@@ -43,153 +38,198 @@ class MasterRepository {
 
   List<MasterItem> _getAllItems() {
     return [
-      ..._getDepartmentItems(),
-      ..._getSubjectItems(),
-      ..._getSegment1Items(),
-      ..._getSegment2Items(),
-      ..._getSegment3Items(),
-      ..._getProjectItems(),
-      ..._getClientItems(),
       ..._getAccountItems(),
-      ..._getExpenseItems(),
-      ..._getProductItems(),
-      ..._getLocationItems(),
+      ..._getSubAccountItems(),
+      ..._getClientItems(),
+      ..._getProjectItems(),
+      ..._getDepartmentItems(),
+      ..._getItemItems(),
+      ..._getPaymentMethodItems(),
+      ..._getTaxTypeItems(),
+      ..._getSegmentItems(),
     ];
   }
 
-  List<MasterItem> _getDepartmentItems() {
-    return [
-      MasterItem(id: 'd001', name: '営業本部 部門', masterType: 'department'),
-      MasterItem(id: 'd002', name: '管理本部 部門', masterType: 'department'),
-      MasterItem(id: 'd003', name: '採用 部門', masterType: 'department'),
-      MasterItem(id: 'd004', name: '開発 部門', masterType: 'department'),
-      MasterItem(id: 'd005', name: '人事 部門', masterType: 'department'),
-      MasterItem(id: 'd006', name: '経理 部門', masterType: 'department'),
-      MasterItem(id: 'd007', name: '総務 部門', masterType: 'department'),
-      MasterItem(id: 'd008', name: 'マーケティング 部門', masterType: 'department'),
-    ];
-  }
-
-  List<MasterItem> _getSubjectItems() {
-    return [
-      MasterItem(id: 's001', name: '補助科目 その1', masterType: 'subject'),
-      MasterItem(id: 's002', name: '補助科目 その2', masterType: 'subject'),
-      MasterItem(id: 's003', name: '給与科目', masterType: 'subject'),
-      MasterItem(id: 's004', name: '交通費科目', masterType: 'subject'),
-      MasterItem(id: 's005', name: '会議費科目', masterType: 'subject'),
-      MasterItem(id: 's006', name: '通信費科目', masterType: 'subject'),
-      MasterItem(id: 's007', name: '消耗品費科目', masterType: 'subject'),
-    ];
-  }
-
-  List<MasterItem> _getSegment1Items() {
-    return [
-      MasterItem(id: 'sg001', name: 'セグメント 東日本', masterType: 'segment1'),
-      MasterItem(id: 'sg002', name: 'セグメント 西日本', masterType: 'segment1'),
-      MasterItem(id: 'sg003', name: 'セグメント 海外', masterType: 'segment1'),
-      MasterItem(id: 'sg004', name: 'セグメント 北海道', masterType: 'segment1'),
-      MasterItem(id: 'sg005', name: 'セグメント 九州', masterType: 'segment1'),
-    ];
-  }
-
-  List<MasterItem> _getSegment2Items() {
-    return [
-      MasterItem(id: 'sg2001', name: 'セグメント2 大企業向け', masterType: 'segment2'),
-      MasterItem(id: 'sg2002', name: 'セグメント2 中小企業向け', masterType: 'segment2'),
-      MasterItem(id: 'sg2003', name: 'セグメント2 個人事業主向け', masterType: 'segment2'),
-      MasterItem(id: 'sg2004', name: 'セグメント2 スタートアップ向け', masterType: 'segment2'),
-      MasterItem(id: 'sg2005', name: 'セグメント2 官公庁向け', masterType: 'segment2'),
-    ];
-  }
-
-  List<MasterItem> _getSegment3Items() {
-    return [
-      MasterItem(id: 'sg3001', name: 'セグメント3 製造業', masterType: 'segment3'),
-      MasterItem(id: 'sg3002', name: 'セグメント3 小売業', masterType: 'segment3'),
-      MasterItem(id: 'sg3003', name: 'セグメント3 サービス業', masterType: 'segment3'),
-      MasterItem(id: 'sg3004', name: 'セグメント3 IT業', masterType: 'segment3'),
-      MasterItem(id: 'sg3005', name: 'セグメント3 金融業', masterType: 'segment3'),
-      MasterItem(id: 'sg3006', name: 'セグメント3 建設業', masterType: 'segment3'),
-    ];
-  }
-
-  List<MasterItem> _getProjectItems() {
-    return [
-      MasterItem(id: 'pj001', name: 'プロジェクト 新規システム開発', masterType: 'project'),
-      MasterItem(id: 'pj002', name: 'プロジェクト Webサイトリニューアル', masterType: 'project'),
-      MasterItem(id: 'pj003', name: 'プロジェクト 業務改善PJ', masterType: 'project'),
-      MasterItem(id: 'pj004', name: 'プロジェクト AIサービス開発', masterType: 'project'),
-      MasterItem(id: 'pj005', name: 'プロジェクト DX推進', masterType: 'project'),
-      MasterItem(id: 'pj006', name: 'プロジェクト セキュリティ強化', masterType: 'project'),
-      MasterItem(id: 'pj007', name: 'プロジェクト クラウド移行', masterType: 'project'),
-    ];
-  }
-
-  List<MasterItem> _getClientItems() {
-    return [
-      MasterItem(id: 'cl001', name: '取引先 株式会社ABC商事', masterType: 'client'),
-      MasterItem(id: 'cl002', name: '取引先 XYZ株式会社', masterType: 'client'),
-      MasterItem(id: 'cl003', name: '取引先 デフォルト工業', masterType: 'client'),
-      MasterItem(id: 'cl004', name: '取引先 サンプル商店', masterType: 'client'),
-      MasterItem(id: 'cl005', name: '取引先 テスト物産', masterType: 'client'),
-      MasterItem(id: 'cl006', name: '取引先 モックアップ株式会社', masterType: 'client'),
-      MasterItem(id: 'cl007', name: '取引先 ダミー商会', masterType: 'client'),
-      MasterItem(id: 'cl008', name: '取引先 プロトタイプ企業', masterType: 'client'),
-    ];
-  }
-
+  // 勘定科目（日商簿記3級準拠）
   List<MasterItem> _getAccountItems() {
     return [
-      MasterItem(id: 'ac001', name: '勘定科目 現金', masterType: 'account'),
-      MasterItem(id: 'ac002', name: '勘定科目 預金', masterType: 'account'),
-      MasterItem(id: 'ac003', name: '勘定科目 売掛金', masterType: 'account'),
-      MasterItem(id: 'ac004', name: '勘定科目 買掛金', masterType: 'account'),
-      MasterItem(id: 'ac005', name: '勘定科目 売上高', masterType: 'account'),
-      MasterItem(id: 'ac006', name: '勘定科目 仕入高', masterType: 'account'),
-      MasterItem(id: 'ac007', name: '勘定科目 販売費及び一般管理費', masterType: 'account'),
-      MasterItem(id: 'ac008', name: '勘定科目 営業外収益', masterType: 'account'),
-      MasterItem(id: 'ac009', name: '勘定科目 営業外費用', masterType: 'account'),
+      // 資産
+      MasterItem(id: 'ac101', name: '現金', masterType: 'account'),
+      MasterItem(id: 'ac102', name: '普通預金', masterType: 'account'),
+      MasterItem(id: 'ac103', name: '当座預金', masterType: 'account'),
+      MasterItem(id: 'ac111', name: '売掛金', masterType: 'account'),
+      MasterItem(id: 'ac112', name: '受取手形', masterType: 'account'),
+      MasterItem(id: 'ac121', name: '貸付金', masterType: 'account'),
+      MasterItem(id: 'ac122', name: '前払金', masterType: 'account'),
+      MasterItem(id: 'ac131', name: '建物', masterType: 'account'),
+      MasterItem(id: 'ac132', name: '備品', masterType: 'account'),
+      MasterItem(id: 'ac133', name: '車両運搬具', masterType: 'account'),
+      MasterItem(id: 'ac134', name: '土地', masterType: 'account'),
+
+      // 負債
+      MasterItem(id: 'ac201', name: '買掛金', masterType: 'account'),
+      MasterItem(id: 'ac202', name: '支払手形', masterType: 'account'),
+      MasterItem(id: 'ac211', name: '借入金', masterType: 'account'),
+      MasterItem(id: 'ac212', name: '未払金', masterType: 'account'),
+      MasterItem(id: 'ac213', name: '前受金', masterType: 'account'),
+      MasterItem(id: 'ac214', name: '預り金', masterType: 'account'),
+
+      // 純資産
+      MasterItem(id: 'ac301', name: '資本金', masterType: 'account'),
+      MasterItem(id: 'ac302', name: '事業主借', masterType: 'account'),
+      MasterItem(id: 'ac303', name: '事業主貸', masterType: 'account'),
+
+      // 収益
+      MasterItem(id: 'ac401', name: '売上高', masterType: 'account'),
+      MasterItem(id: 'ac402', name: '受取手数料', masterType: 'account'),
+      MasterItem(id: 'ac403', name: '受取利息', masterType: 'account'),
+      MasterItem(id: 'ac411', name: '雑収入', masterType: 'account'),
+
+      // 費用
+      MasterItem(id: 'ac501', name: '仕入高', masterType: 'account'),
+      MasterItem(id: 'ac511', name: '給料', masterType: 'account'),
+      MasterItem(id: 'ac512', name: '外注費', masterType: 'account'),
+      MasterItem(id: 'ac521', name: '広告宣伝費', masterType: 'account'),
+      MasterItem(id: 'ac522', name: '旅費交通費', masterType: 'account'),
+      MasterItem(id: 'ac523', name: '通信費', masterType: 'account'),
+      MasterItem(id: 'ac524', name: '水道光熱費', masterType: 'account'),
+      MasterItem(id: 'ac525', name: '消耗品費', masterType: 'account'),
+      MasterItem(id: 'ac526', name: '支払家賃', masterType: 'account'),
+      MasterItem(id: 'ac527', name: '保険料', masterType: 'account'),
+      MasterItem(id: 'ac528', name: '租税公課', masterType: 'account'),
+      MasterItem(id: 'ac529', name: '減価償却費', masterType: 'account'),
+      MasterItem(id: 'ac531', name: '支払利息', masterType: 'account'),
+      MasterItem(id: 'ac541', name: '雑費', masterType: 'account'),
     ];
   }
 
-  List<MasterItem> _getExpenseItems() {
+  // 補助科目
+  List<MasterItem> _getSubAccountItems() {
     return [
-      MasterItem(id: 'ex001', name: '費用項目 人件費', masterType: 'expense'),
-      MasterItem(id: 'ex002', name: '費用項目 広告宣伝費', masterType: 'expense'),
-      MasterItem(id: 'ex003', name: '費用項目 旅費交通費', masterType: 'expense'),
-      MasterItem(id: 'ex004', name: '費用項目 通信費', masterType: 'expense'),
-      MasterItem(id: 'ex005', name: '費用項目 水道光熱費', masterType: 'expense'),
-      MasterItem(id: 'ex006', name: '費用項目 地代家賃', masterType: 'expense'),
-      MasterItem(id: 'ex007', name: '費用項目 減価償却費', masterType: 'expense'),
-      MasterItem(id: 'ex008', name: '費用項目 福利厚生費', masterType: 'expense'),
-      MasterItem(id: 'ex009', name: '費用項目 研修費', masterType: 'expense'),
-      MasterItem(id: 'ex010', name: '費用項目 外注費', masterType: 'expense'),
+      // 普通預金の補助
+      MasterItem(id: 'sub101', name: '○○銀行 本店', masterType: 'sub_account'),
+      MasterItem(id: 'sub102', name: '○○銀行 支店', masterType: 'sub_account'),
+      MasterItem(id: 'sub103', name: '△△信用金庫', masterType: 'sub_account'),
+      MasterItem(id: 'sub104', name: 'ネット銀行', masterType: 'sub_account'),
+
+      // 売掛金の補助
+      MasterItem(id: 'sub201', name: 'A社 売掛金', masterType: 'sub_account'),
+      MasterItem(id: 'sub202', name: 'B社 売掛金', masterType: 'sub_account'),
+      MasterItem(id: 'sub203', name: 'C社 売掛金', masterType: 'sub_account'),
+
+      // 買掛金の補助
+      MasterItem(id: 'sub301', name: 'X社 買掛金', masterType: 'sub_account'),
+      MasterItem(id: 'sub302', name: 'Y社 買掛金', masterType: 'sub_account'),
+
+      // 借入金の補助
+      MasterItem(id: 'sub401', name: '○○銀行 借入金', masterType: 'sub_account'),
+      MasterItem(id: 'sub402', name: '政策金融公庫', masterType: 'sub_account'),
     ];
   }
 
-  List<MasterItem> _getProductItems() {
+  // 取引先（フリーランスが実際に取引する企業）
+  List<MasterItem> _getClientItems() {
     return [
-      MasterItem(id: 'pr001', name: '製品 製品A スタンダード', masterType: 'product'),
-      MasterItem(id: 'pr002', name: '製品 製品B プレミアム', masterType: 'product'),
-      MasterItem(id: 'pr003', name: '製品 製品C エンタープライズ', masterType: 'product'),
-      MasterItem(id: 'pr004', name: '製品 サービスX ベーシック', masterType: 'product'),
-      MasterItem(id: 'pr005', name: '製品 サービスY プロフェッショナル', masterType: 'product'),
-      MasterItem(id: 'pr006', name: '製品 ソリューションZ', masterType: 'product'),
-      MasterItem(id: 'pr007', name: '製品 カスタムパッケージ', masterType: 'product'),
+      MasterItem(id: 'cl001', name: '株式会社テクノロジー', masterType: 'client'),
+      MasterItem(id: 'cl002', name: '株式会社デジタルマーケティング', masterType: 'client'),
+      MasterItem(id: 'cl003', name: '株式会社Webソリューションズ', masterType: 'client'),
+      MasterItem(id: 'cl004', name: '合同会社クリエイティブワークス', masterType: 'client'),
+      MasterItem(id: 'cl005', name: '株式会社ビジネスコンサルティング', masterType: 'client'),
+      MasterItem(id: 'cl006', name: '株式会社スタートアップ支援', masterType: 'client'),
+      MasterItem(id: 'cl007', name: '株式会社メディアプロダクション', masterType: 'client'),
+      MasterItem(id: 'cl008', name: '株式会社ECコマース', masterType: 'client'),
+      MasterItem(id: 'cl009', name: '株式会社コンテンツマネジメント', masterType: 'client'),
+      MasterItem(id: 'cl010', name: '個人事業主 山田太郎様', masterType: 'client'),
     ];
   }
 
-  List<MasterItem> _getLocationItems() {
+  // プロジェクト（案件単位）
+  List<MasterItem> _getProjectItems() {
     return [
-      MasterItem(id: 'loc001', name: '拠点 東京本社', masterType: 'location'),
-      MasterItem(id: 'loc002', name: '拠点 大阪支社', masterType: 'location'),
-      MasterItem(id: 'loc003', name: '拠点 名古屋支社', masterType: 'location'),
-      MasterItem(id: 'loc004', name: '拠点 福岡支社', masterType: 'location'),
-      MasterItem(id: 'loc005', name: '拠点 札幌支社', masterType: 'location'),
-      MasterItem(id: 'loc006', name: '拠点 仙台支社', masterType: 'location'),
-      MasterItem(id: 'loc007', name: '拠点 広島支社', masterType: 'location'),
-      MasterItem(id: 'loc008', name: '拠点 海外オフィス（シンガポール）', masterType: 'location'),
-      MasterItem(id: 'loc009', name: '拠点 海外オフィス（上海）', masterType: 'location'),
+      MasterItem(id: 'pj001', name: 'コーポレートサイト制作', masterType: 'project'),
+      MasterItem(id: 'pj002', name: 'ECサイト構築プロジェクト', masterType: 'project'),
+      MasterItem(id: 'pj003', name: 'Webアプリ開発', masterType: 'project'),
+      MasterItem(id: 'pj004', name: 'SEO対策・コンサルティング', masterType: 'project'),
+      MasterItem(id: 'pj005', name: 'SNS運用代行', masterType: 'project'),
+      MasterItem(id: 'pj006', name: 'LP制作・運用', masterType: 'project'),
+      MasterItem(id: 'pj007', name: 'システム保守運用', masterType: 'project'),
+      MasterItem(id: 'pj008', name: 'ブランディング支援', masterType: 'project'),
+      MasterItem(id: 'pj009', name: 'デザイン制作業務', masterType: 'project'),
+      MasterItem(id: 'pj010', name: '記事執筆・編集', masterType: 'project'),
+    ];
+  }
+
+  // 部門（フリーランスの事業区分）
+  List<MasterItem> _getDepartmentItems() {
+    return [
+      MasterItem(id: 'dep01', name: 'Web制作事業', masterType: 'department'),
+      MasterItem(id: 'dep02', name: 'デザイン事業', masterType: 'department'),
+      MasterItem(id: 'dep03', name: 'ライティング事業', masterType: 'department'),
+      MasterItem(id: 'dep04', name: 'コンサルティング事業', masterType: 'department'),
+      MasterItem(id: 'dep05', name: 'システム開発事業', masterType: 'department'),
+      MasterItem(id: 'dep06', name: 'マーケティング事業', masterType: 'department'),
+      MasterItem(id: 'dep07', name: '動画編集事業', masterType: 'department'),
+      MasterItem(id: 'dep08', name: '翻訳事業', masterType: 'department'),
+    ];
+  }
+
+  // 品目（サービス・商品の詳細）
+  List<MasterItem> _getItemItems() {
+    return [
+      MasterItem(id: 'itm001', name: 'Webサイト制作', masterType: 'item'),
+      MasterItem(id: 'itm002', name: 'ロゴデザイン', masterType: 'item'),
+      MasterItem(id: 'itm003', name: 'バナー制作', masterType: 'item'),
+      MasterItem(id: 'itm004', name: 'SEO記事執筆', masterType: 'item'),
+      MasterItem(id: 'itm005', name: 'プレスリリース作成', masterType: 'item'),
+      MasterItem(id: 'itm006', name: 'SNS投稿コンテンツ', masterType: 'item'),
+      MasterItem(id: 'itm007', name: 'WordPress構築', masterType: 'item'),
+      MasterItem(id: 'itm008', name: 'システム設計', masterType: 'item'),
+      MasterItem(id: 'itm009', name: 'コーディング', masterType: 'item'),
+      MasterItem(id: 'itm010', name: 'コンサルティング（時間単価）', masterType: 'item'),
+      MasterItem(id: 'itm011', name: '保守運用（月額）', masterType: 'item'),
+      MasterItem(id: 'itm012', name: '動画編集', masterType: 'item'),
+    ];
+  }
+
+  // 決済方法
+  List<MasterItem> _getPaymentMethodItems() {
+    return [
+      MasterItem(id: 'pay01', name: '現金', masterType: 'payment_method'),
+      MasterItem(id: 'pay02', name: '銀行振込', masterType: 'payment_method'),
+      MasterItem(id: 'pay03', name: 'クレジットカード', masterType: 'payment_method'),
+      MasterItem(id: 'pay04', name: 'PayPay', masterType: 'payment_method'),
+      MasterItem(id: 'pay05', name: '請求書払い', masterType: 'payment_method'),
+      MasterItem(id: 'pay06', name: '電子マネー', masterType: 'payment_method'),
+      MasterItem(id: 'pay07', name: 'デビットカード', masterType: 'payment_method'),
+      MasterItem(id: 'pay08', name: '掛売り', masterType: 'payment_method'),
+    ];
+  }
+
+  // 税区分
+  List<MasterItem> _getTaxTypeItems() {
+    return [
+      MasterItem(id: 'tax01', name: '課税売上 10%', masterType: 'tax_type'),
+      MasterItem(id: 'tax02', name: '課税売上 8%（軽減税率）', masterType: 'tax_type'),
+      MasterItem(id: 'tax03', name: '課税仕入 10%', masterType: 'tax_type'),
+      MasterItem(id: 'tax04', name: '課税仕入 8%（軽減税率）', masterType: 'tax_type'),
+      MasterItem(id: 'tax05', name: '非課税', masterType: 'tax_type'),
+      MasterItem(id: 'tax06', name: '免税', masterType: 'tax_type'),
+      MasterItem(id: 'tax07', name: '不課税', masterType: 'tax_type'),
+      MasterItem(id: 'tax08', name: '対象外', masterType: 'tax_type'),
+    ];
+  }
+
+  // セグメント（事業の切り口）
+  List<MasterItem> _getSegmentItems() {
+    return [
+      MasterItem(id: 'seg01', name: '新規顧客向け', masterType: 'segment'),
+      MasterItem(id: 'seg02', name: '既存顧客向け', masterType: 'segment'),
+      MasterItem(id: 'seg03', name: '単発案件', masterType: 'segment'),
+      MasterItem(id: 'seg04', name: '継続案件', masterType: 'segment'),
+      MasterItem(id: 'seg05', name: 'スポット対応', masterType: 'segment'),
+      MasterItem(id: 'seg06', name: '大型案件', masterType: 'segment'),
+      MasterItem(id: 'seg07', name: '小規模案件', masterType: 'segment'),
+      MasterItem(id: 'seg08', name: '自社事業', masterType: 'segment'),
     ];
   }
 

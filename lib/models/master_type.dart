@@ -8,36 +8,30 @@ class MasterType {
   });
 }
 
-// 将来的にマスタを追加・変更しやすいよう、ここで一元管理
+// フリーランス向け会計マスタ（日商簿記3級準拠）
 class MasterTypes {
   static const all = MasterType(id: 'all', displayName: '全て');
-  static const department = MasterType(id: 'department', displayName: '補助部門');
-  static const subject = MasterType(id: 'subject', displayName: '科目');
-  static const segment1 = MasterType(id: 'segment1', displayName: 'セグメント1');
-
-  // 追加マスタ（8種類）
-  static const segment2 = MasterType(id: 'segment2', displayName: 'セグメント2');
-  static const segment3 = MasterType(id: 'segment3', displayName: 'セグメント3');
-  static const project = MasterType(id: 'project', displayName: 'プロジェクト');
-  static const client = MasterType(id: 'client', displayName: '取引先');
   static const account = MasterType(id: 'account', displayName: '勘定科目');
-  static const expense = MasterType(id: 'expense', displayName: '費用項目');
-  static const product = MasterType(id: 'product', displayName: '製品');
-  static const location = MasterType(id: 'location', displayName: '拠点');
+  static const subAccount = MasterType(id: 'sub_account', displayName: '補助科目');
+  static const client = MasterType(id: 'client', displayName: '取引先');
+  static const project = MasterType(id: 'project', displayName: 'プロジェクト');
+  static const department = MasterType(id: 'department', displayName: '部門');
+  static const item = MasterType(id: 'item', displayName: '品目');
+  static const paymentMethod = MasterType(id: 'payment_method', displayName: '決済方法');
+  static const taxType = MasterType(id: 'tax_type', displayName: '税区分');
+  static const segment = MasterType(id: 'segment', displayName: 'セグメント');
 
-  // 全マスタタイプのリスト（タブの順番もここで制御）
+  // 全マスタタイプのリスト
   static const List<MasterType> values = [
     all,
-    department,
-    subject,
-    segment1,
-    segment2,
-    segment3,
-    project,
-    client,
     account,
-    expense,
-    product,
-    location,
+    subAccount,
+    client,
+    project,
+    department,
+    item,
+    paymentMethod,
+    taxType,
+    segment,
   ];
 }
