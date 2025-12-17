@@ -1,16 +1,43 @@
-# searchable_combobox
+# New Searchable Combobox Example
 
-A new Flutter project.
+## 📄 概要
 
-## Getting Started
+Flutter ＆ Riverpod & UI実装パッケージを利用した複数選択肢を選択して対象をChipで表示するアプリサンプルになります。
 
-This project is a starting point for a Flutter application.
+### 1. 想定アーキテクチャ概要
 
-A few resources to get you started if this is your first Flutter project:
+```mermaid
+flowchart LR
+    id1(View) --> id2
+    id2(ViewModel) --> id3
+    id3(Repository)
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 2. 画面スクリーンショット
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+サンプル的には簿記の仕分けの様な感じで、項目を複数選択して絞り込み検索の前段階を行う想定のものになります。
+
+__【iOS】__
+
+<img src="./images/example_capture_of_ios1.png" width="320"> <img src="./images/example_capture_of_ios2.png" width="320">
+
+__【Android】__
+
+<img src="./images/example_capture_of_android1.png" width="320"> <img src="./images/example_capture_of_android2.png" width="320">
+
+### 3.サンプル構築の際に利用したもの
+
+__【サンプルで利用したパッケージ】__
+
+- flutter_riverpod:
+    - 状態管理
+    - https://pub.dev/packages/flutter_riverpod
+- dropdown_search:
+    - 絞り込み検索にも対応したドロップダウン検索に必要なプラグイン
+    - https://pub.dev/packages/dropdown_search
+- buttons_tabbar:
+    - トグルボタン形式のタブバー表示をするために必要なプラグイン
+    - https://pub.dev/packages/buttons_tabbar
+- shared_preferences:
+    - 選択内容履歴を保存＆表示をするために必要なプラグイン
+    - https://pub.dev/packages/shared_preferences
