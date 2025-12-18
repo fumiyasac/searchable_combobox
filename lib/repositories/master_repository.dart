@@ -194,7 +194,7 @@ class MasterRepository {
   // 決済方法
   List<MasterItem> _getPaymentMethodItems() {
     return [
-      MasterItem(id: 'pay01', name: '現金', masterType: 'payment_method'),
+      MasterItem(id: 'pay01', name: '現金払い', masterType: 'payment_method'),
       MasterItem(id: 'pay02', name: '銀行振込', masterType: 'payment_method'),
       MasterItem(id: 'pay03', name: 'クレジットカード', masterType: 'payment_method'),
       MasterItem(id: 'pay04', name: 'PayPay', masterType: 'payment_method'),
