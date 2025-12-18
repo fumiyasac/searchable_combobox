@@ -92,8 +92,8 @@ class ComboBoxScreen extends ConsumerWidget {
                 borderColor: Colors.grey.shade300,
                 unselectedBorderColor: Colors.grey.shade300,
                 onTap: (index) {
-                  ref.read(selectedMasterTypeProvider.notifier).state =
-                  MasterTypes.values[index];
+                  ref.read(selectedMasterTypeProvider.notifier)
+                      .update(MasterTypes.values[index]);
                 },
                 tabs: MasterTypes.values.map((type) {
                   return Tab(
