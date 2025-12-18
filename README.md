@@ -41,3 +41,67 @@ __【サンプルで利用したパッケージ】__
 - shared_preferences:
     - 選択内容履歴を保存＆表示をするために必要なプラグイン
     - https://pub.dev/packages/shared_preferences
+
+### 4.Riverpod3.x系への対応
+
+主な変更点は下記の通りになります。
+
+__【1. StateProvider → Notifier + NotifierProvider】__
+
+```dart
+// Before (Riverpod 2.x)
+final selectedMasterTypeProvider = StateProvider<MasterType>((ref) {
+  return MasterTypes.all;
+});
+
+// After (Riverpod 3.x)
+class SelectedMasterTypeNotifier extends Notifier<MasterType> {
+  @override
+  MasterType build() => MasterTypes.all;
+  
+  void update(MasterType type) {
+    state = type;
+  }
+}
+
+final selectedMasterTypeProvider = NotifierProvider<SelectedMasterTypeNotifier, MasterType>(
+  SelectedMasterTypeNotifier.new,
+);
+```
+
+__【2. StateNotifierProvider → Notifier + NotifierProvider】__
+
+```dart
+// Before (Riverpod 2.x)
+class SelectedItemsNotifier extends StateNotifier<List<MasterItem>> {
+  SelectedItemsNotifier(this.repository) : super([]) { ... }
+}
+
+final selectedItemsProvider = StateNotifierProvider<SelectedItemsNotifier, List<MasterItem>>((ref) {
+  final repository = ref.watch(masterRepositoryProvider);
+  return SelectedItemsNotifier(repository);
+});
+
+// After (Riverpod 3.x)
+class SelectedItemsNotifier extends Notifier<List<MasterItem>> {
+  @override
+  List<MasterItem> build() { ... }
+  
+  MasterRepository get repository => ref.read(masterRepositoryProvider);
+}
+
+final selectedItemsProvider = NotifierProvider<SelectedItemsNotifier, List<MasterItem>>(
+  SelectedItemsNotifier.new,
+);
+```
+
+__【3. 状態更新の呼び出し方】__
+
+```dart
+// Before (Riverpod 2.x)
+ref.read(selectedMasterTypeProvider.notifier).state = MasterTypes.values[index];
+
+// After (Riverpod 3.x)
+ref.read(selectedMasterTypeProvider.notifier).update(MasterTypes.values[index]);
+```
+
