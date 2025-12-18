@@ -9,9 +9,20 @@ final masterRepositoryProvider = Provider<MasterRepository>((ref) {
 });
 
 // 選択中のタブ（マスタタイプ）を管理
-final selectedMasterTypeProvider = StateProvider<MasterType>((ref) {
-  return MasterTypes.all;
-});
+class SelectedMasterTypeNotifier extends Notifier<MasterType> {
+  @override
+  MasterType build() {
+    return MasterTypes.all;
+  }
+
+  void update(MasterType type) {
+    state = type;
+  }
+}
+
+final selectedMasterTypeProvider = NotifierProvider<SelectedMasterTypeNotifier, MasterType>(
+  SelectedMasterTypeNotifier.new,
+);
 
 // 各マスタタイプのアイテムリストを取得
 final masterItemsProvider = FutureProvider.family<List<MasterItem>, String>((ref, masterType) async {
@@ -42,12 +53,14 @@ final masterItemsProvider = FutureProvider.family<List<MasterItem>, String>((ref
 });
 
 // 選択されたアイテムを管理
-class SelectedItemsNotifier extends StateNotifier<List<MasterItem>> {
-  SelectedItemsNotifier(this.repository) : super([]) {
+class SelectedItemsNotifier extends Notifier<List<MasterItem>> {
+  @override
+  List<MasterItem> build() {
     _loadSelectedItems();
+    return [];
   }
 
-  final MasterRepository repository;
+  MasterRepository get repository => ref.read(masterRepositoryProvider);
 
   Future<void> _loadSelectedItems() async {
     state = await repository.getSelectedItems();
@@ -82,7 +95,6 @@ class SelectedItemsNotifier extends StateNotifier<List<MasterItem>> {
   }
 }
 
-final selectedItemsProvider = StateNotifierProvider<SelectedItemsNotifier, List<MasterItem>>((ref) {
-  final repository = ref.watch(masterRepositoryProvider);
-  return SelectedItemsNotifier(repository);
-});
+final selectedItemsProvider = NotifierProvider<SelectedItemsNotifier, List<MasterItem>>(
+  SelectedItemsNotifier.new,
+);
