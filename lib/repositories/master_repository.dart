@@ -2,33 +2,33 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/master_item.dart';
 
-/// マスタデータの取得・保存を担当するリポジトリクラス
-///
-/// リポジトリパターン:
-/// データの取得元（API、ローカルDB、SharedPreferencesなど）を
-/// 抽象化し、ビジネスロジックから分離します。
-/// これにより、データソースを変更しても他の部分に影響しません。
+// マスタデータの取得・保存を担当するリポジトリクラス
+//
+// リポジトリパターン:
+// データの取得元（API、ローカルDB、SharedPreferencesなど）を
+// 抽象化し、ビジネスロジックから分離します。
+// これにより、データソースを変更しても他の部分に影響しません。
 class MasterRepository {
   // SharedPreferencesのキー定義
   // static const を使用して、タイプミスを防ぎます
 
-  /// 選択済みアイテムを保存するキー
+  // 選択済みアイテムを保存するキー
   static const String _selectedItemsKey = 'selected_items';
 
-  /// 選択履歴を保存するキー
+  // 選択履歴を保存するキー
   static const String _selectionHistoryKey = 'selection_history';
 
-  /// マスタアイテムを取得するメソッド
-  ///
-  /// Future<T> は非同期処理を表します。
-  /// await キーワードで結果を待つことができます。
-  ///
-  /// 実際の運用では、ここでWeb APIを呼び出してデータを取得します。
-  /// 現在はダミーデータを返していますが、API連携に切り替える際も
-  /// このメソッドの中身を変更するだけで済みます。
-  ///
-  /// @param masterType 取得したいマスタの種類
-  /// @return マスタアイテムのリスト
+  // マスタアイテムを取得するメソッド
+  //
+  // Future<T> は非同期処理を表します。
+  // await キーワードで結果を待つことができます。
+  //
+  // 実際の運用では、ここでWeb APIを呼び出してデータを取得します。
+  // 現在はダミーデータを返していますが、API連携に切り替える際も
+  // このメソッドの中身を変更するだけで済みます。
+  //
+  // @param masterType 取得したいマスタの種類
+  // @return マスタアイテムのリスト
   Future<List<MasterItem>> getMasterItems(String masterType) async {
     // API呼び出しをシミュレート（300ミリ秒待機）
     // 実際のAPI呼び出しは時間がかかるため、この遅延で
@@ -64,10 +64,10 @@ class MasterRepository {
     }
   }
 
-  /// 全てのマスタアイテムを取得
-  ///
-  /// スプレッド演算子 (...) を使用して、複数のリストを結合します。
-  /// これにより、全マスタの項目を1つのリストにまとめています。
+  // 全てのマスタアイテムを取得
+  //
+  // スプレッド演算子 (...) を使用して、複数のリストを結合します。
+  // これにより、全マスタの項目を1つのリストにまとめています。
   List<MasterItem> _getAllItems() {
     return [
       ..._getAccountItems(), // ... は展開演算子
@@ -82,10 +82,10 @@ class MasterRepository {
     ];
   }
 
-  /// 勘定科目のダミーデータ
-  ///
-  /// 日商簿記3級の科目体系に準拠しています。
-  /// 実際の運用では、これらのデータはAPIやデータベースから取得します。
+  // 勘定科目のダミーデータ
+  //
+  // 日商簿記3級の科目体系に準拠しています。
+  // 実際の運用では、これらのデータはAPIやデータベースから取得します。
   List<MasterItem> _getAccountItems() {
     return [
       // 資産
@@ -138,10 +138,10 @@ class MasterRepository {
     ];
   }
 
-  /// 補助科目のダミーデータ
-  ///
-  /// 勘定科目をさらに細分化するための補助科目です。
-  /// 例：「普通預金」を銀行ごとに管理
+  // 補助科目のダミーデータ
+  //
+  // 勘定科目をさらに細分化するための補助科目です。
+  // 例：「普通預金」を銀行ごとに管理
   List<MasterItem> _getSubAccountItems() {
     return [
       // 普通預金の補助
@@ -165,9 +165,9 @@ class MasterRepository {
     ];
   }
 
-  /// 取引先のダミーデータ
-  ///
-  /// フリーランスが実際に取引する企業を想定しています
+  // 取引先のダミーデータ
+  //
+  // フリーランスが実際に取引する企業を想定しています
   List<MasterItem> _getClientItems() {
     return [
       MasterItem(id: 'cl001', name: '株式会社テクノロジー', masterType: 'client'),
@@ -183,9 +183,9 @@ class MasterRepository {
     ];
   }
 
-  /// プロジェクトのダミーデータ
-  ///
-  /// 案件単位で管理するためのマスタです
+  // プロジェクトのダミーデータ
+  //
+  // 案件単位で管理するためのマスタです
   List<MasterItem> _getProjectItems() {
     return [
       MasterItem(id: 'pj001', name: 'コーポレートサイト制作', masterType: 'project'),
@@ -201,9 +201,9 @@ class MasterRepository {
     ];
   }
 
-  /// 部門のダミーデータ
-  ///
-  /// フリーランスの事業区分を表します
+  // 部門のダミーデータ
+  //
+  // フリーランスの事業区分を表します
   List<MasterItem> _getDepartmentItems() {
     return [
       MasterItem(id: 'dep01', name: 'Web制作事業', masterType: 'department'),
@@ -217,9 +217,9 @@ class MasterRepository {
     ];
   }
 
-  /// 品目のダミーデータ
-  ///
-  /// サービス・商品の詳細を表します
+  // 品目のダミーデータ
+  //
+  // サービス・商品の詳細を表します
   List<MasterItem> _getItemItems() {
     return [
       MasterItem(id: 'itm001', name: 'Webサイト制作', masterType: 'item'),
@@ -251,9 +251,9 @@ class MasterRepository {
     ];
   }
 
-  /// 税区分のダミーデータ
-  ///
-  /// 消費税の区分を表します（日本の税制に準拠）
+  // 税区分のダミーデータ
+  //
+  // 消費税の区分を表します（日本の税制に準拠）
   List<MasterItem> _getTaxTypeItems() {
     return [
       MasterItem(id: 'tax01', name: '課税売上 10%', masterType: 'tax_type'),
@@ -267,9 +267,9 @@ class MasterRepository {
     ];
   }
 
-  /// セグメントのダミーデータ
-  ///
-  /// 事業の切り口を表します
+  // セグメントのダミーデータ
+  //
+  // 事業の切り口を表します
   List<MasterItem> _getSegmentItems() {
     return [
       MasterItem(id: 'seg01', name: '新規顧客向け', masterType: 'segment'),
@@ -283,13 +283,13 @@ class MasterRepository {
     ];
   }
 
-  /// 選択した項目をローカルストレージに保存
-  ///
-  /// SharedPreferencesは、Flutterでキー・バリュー形式のデータを
-  /// 永続化するための標準的な方法です。アプリを閉じても
-  /// データが保持されます。
-  ///
-  /// @param items 保存する項目のリスト
+  // 選択した項目をローカルストレージに保存
+  //
+  // SharedPreferencesは、Flutterでキー・バリュー形式のデータを
+  // 永続化するための標準的な方法です。アプリを閉じても
+  // データが保持されます。
+  //
+  // @param items 保存する項目のリスト
   Future<void> saveSelectedItems(List<MasterItem> items) async {
     // SharedPreferencesのインスタンスを取得（非同期処理）
     final prefs = await SharedPreferences.getInstance();
@@ -305,9 +305,9 @@ class MasterRepository {
     await prefs.setString(_selectedItemsKey, jsonEncode(jsonList));
   }
 
-  /// 保存された選択項目をローカルストレージから取得
-  ///
-  /// @return 選択されている項目のリスト（なければ空リスト）
+  // 保存された選択項目をローカルストレージから取得
+  //
+  // @return 選択されている項目のリスト（なければ空リスト）
   Future<List<MasterItem>> getSelectedItems() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -324,12 +324,12 @@ class MasterRepository {
     return jsonList.map((json) => MasterItem.fromJson(json)).toList();
   }
 
-  /// 選択履歴を更新
-  ///
-  /// ユーザーが項目を選択するたびに呼ばれ、「最近使用した項目」として
-  /// 履歴に記録します。これにより、よく使う項目を優先的に表示できます。
-  ///
-  /// @param item 選択された項目
+  // 選択履歴を更新
+  //
+  // ユーザーが項目を選択するたびに呼ばれ、「最近使用した項目」として
+  // 履歴に記録します。これにより、よく使う項目を優先的に表示できます。
+  //
+  // @param item 選択された項目
   Future<void> updateSelectionHistory(MasterItem item) async {
     final prefs = await SharedPreferences.getInstance();
     final historyJson = prefs.getString(_selectionHistoryKey);
@@ -360,12 +360,12 @@ class MasterRepository {
     await prefs.setString(_selectionHistoryKey, jsonEncode(jsonList));
   }
 
-  /// 選択履歴を取得
-  ///
-  /// 保存された選択履歴を読み込みます。
-  /// この履歴を使って、「最近使用した項目」を優先表示します。
-  ///
-  /// @return 選択履歴のリスト（新しいものが先頭）
+  // 選択履歴を取得
+  //
+  // 保存された選択履歴を読み込みます。
+  // この履歴を使って、「最近使用した項目」を優先表示します。
+  //
+  // @return 選択履歴のリスト（新しいものが先頭）
   Future<List<MasterItem>> getSelectionHistory() async {
     final prefs = await SharedPreferences.getInstance();
     final historyJson = prefs.getString(_selectionHistoryKey);
