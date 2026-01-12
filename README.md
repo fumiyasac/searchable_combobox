@@ -42,6 +42,10 @@ __【サンプルで利用したパッケージ】__
     - 選択内容履歴を保存＆表示をするために必要なプラグイン
     - https://pub.dev/packages/shared_preferences
 
+<img src="./images/package_dropdown_menu_and_bottons_tabbar1.jpg">
+
+<img src="./images/package_dropdown_menu_and_bottons_tabbar2.jpg">
+
 ### 4.Riverpod3.x系への対応
 
 主な変更点は下記の通りになります。
